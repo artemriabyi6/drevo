@@ -52,7 +52,7 @@ const Footer = () => {
           </div>
 
           <div className={styles.linksColumn}>
-            <h4 className={styles.linksTitle}>КАР'ЄРА</h4>
+            <h4 className={styles.linksTitle}>{`КАР'ЄРА`}</h4>
             <ul className={styles.linksList}>
               <li><a href="#">Вакансії</a></li>
               <li><a href="#">Стажировка</a></li>
@@ -79,12 +79,12 @@ const Footer = () => {
         {/* Contact Section */}
         <div className={styles.contactSection}>
           <p className={styles.contactText}>
-            Якщо у вас виникли запитання, будь ласка, зв'яжіться з нами
+            {`Якщо у вас виникли запитання, будь ласка, зв'яжіться з нами`}
           </p>
           
           <div className={styles.contactInfo}>
             <p className={styles.contactHours}>
-              ПОНЕДІЛОК - П'ЯТНИЦЯ: 10:00 - 19:00
+             {`ПОНЕДІЛОК - П'ЯТНИЦЯ: 10:00 - 19:00`} 
             </p>
             <p className={styles.contactPhone}>ТЕЛ.: +380996360676</p>
             <p className={styles.contactEmail}>ЕЛЕКТРОННА ПОШТА: INFO@DREVO.FURNITURE</p>
