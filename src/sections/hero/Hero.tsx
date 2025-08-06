@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleFavorite } from '@/features/favorites/favoritesSlice';
+import { setCategory } from '@/features/filter/filterSlice';
+import { RootState } from '../../redux/store';
 
 type Card = {
   title: string;
@@ -42,7 +44,7 @@ const cards: Card[] = [
     desc: "Дизайнер Ростислав Сороковий мав на меті створити об'єкт, що більше нагадує м'яку скульптуру, ніж меблі.",
     image: "/assets/images/UMI-armchair.webp",
     hoverImage: "/assets/images/UMI-armchair-4.webp",
-    type: 'armchair'
+    type: 'pouf'
   },
   {
     title: "BIBLIO L",
@@ -60,7 +62,7 @@ const cards: Card[] = [
     desc: "Як би виглядало крісло, якби ви могли робити меблі з тіста, як равіолі, домашні макарони або круасани?",
     image: "/assets/images/Biblio-coffee-tables.001 - Edited.webp",
     hoverImage: "/assets/images/coffee-table-Biblio-L-2 - Edited.webp",
-    type: 'armchair'
+    type: 'table'
   },
   {
     title: "BALANCE",
@@ -69,7 +71,7 @@ const cards: Card[] = [
     desc: "Обідній стілець Balance пропонує нам розслабитися і спробувати знайти такий необхідний баланс у нашому житті.",
     image: "/assets/images/Balance-chair-1 - Edited.webp",
     hoverImage: "/assets/images/Balance-chair-2 - Edited.webp",
-    type: 'armchair'
+    type: 'pouf'
   },
   {
     title: "DROVA 6",
@@ -78,7 +80,7 @@ const cards: Card[] = [
     desc: "Конструкція пуфа “DROVA” складається з декількох м’яких блоків, покладених один на одного, які нагадують дрова, складені біля каміна.",
     image: "/assets/images/pouf-drova-6_1 - Edited.webp",
     hoverImage: "/assets/images/pouf-drova-6_2 - Edited.webp",
-    type: 'table'
+    type: 'pouf'
   },
   {
     title: "FULL FILL",
@@ -87,7 +89,7 @@ const cards: Card[] = [
     desc: "Він був натхненний творчістю художника-сюрреаліста Сальвадора Далі. Дзеркало, як рідка субстанція, витікає з рами і створює вхід у нову реальність.",
     image: "/assets/images/mirror-full-fill-1 - Edited.webp",
     hoverImage: "/assets/images/mirror-full-fill-2 - Edited.webp",
-    type: 'armchair'
+    type: 'mirror'
   },
   {
     title: "LAKE L",
@@ -96,18 +98,28 @@ const cards: Card[] = [
     desc: "Ліжко з озером виділяється функціональним журнальним столиком з м’яким тканинним обідком, що нагадує латаття, яке плаває по озеру. Журнальний столик можна прибирати або пересувати вздовж ліжка за потреби.",
     image: "/assets/images/bed-lake-1 - Edited.webp",
     hoverImage: "/assets/images/bed-lake-2 - Edited.webp",
-    type: 'armchair'
+    type: 'bed'
   },
 ];
 
 const Hero = () => {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+ const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const dispatch = useDispatch();
-  const likedIds = useSelector((state: { favorites: { likedIds: number[] } }) => state.favorites.likedIds);
+  const likedIds = useSelector((state: RootState) => state.favorites.likedIds);
+  const currentCategory = useSelector((state: RootState) => state.filter.category);
+
+  const filteredCards = currentCategory
+    ? cards.filter(card => card.type === currentCategory)
+    : cards;
+
+    const handleResetCategory = () => {
+    dispatch(setCategory(null)); // Скидаємо фільтр категорій
+  };
 
   return (
     <section className={styles.section}>
-      {cards.map((card) => (
+      {filteredCards.length > 0 ? (
+           filteredCards.map((card) => (
         <div 
           key={card.id}
           className={styles.card}
@@ -168,7 +180,19 @@ const Hero = () => {
             <p className={styles.price}>{card.price}</p>
           </div>
         </div>
-      ))}
+      ))) : (
+        <div className={styles.emptyMessage}>
+          <p>У цій категорії на жаль відсутні товари</p>
+          <button 
+            className={styles.backButton}
+            onClick={handleResetCategory}
+          >
+            Повернутись до всіх товарів
+          </button>
+        </div>
+      )
+   
+      }
     </section>
   );
 };

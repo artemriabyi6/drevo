@@ -3,25 +3,31 @@
 import { useState, useRef, useEffect } from 'react';
 import styles from './CategorySlider.module.scss';
 import Image from 'next/image';
+import { useDispatch, useSelector } from 'react-redux';
+import { setCategory } from '@/features/filter/filterSlice';
+import { RootState } from '../redux/store';
 
 const CategorySlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [visibleCategories, setVisibleCategories] = useState(7);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const currentCategory = useSelector((state: RootState) => state.filter.category);
+  const dispatch = useDispatch();
 
   const categories = [
-    { id: 1, name: 'Дивани' },
-    { id: 2, name: 'Ліжка' },
-    { id: 3, name: 'Столи' },
-    { id: 4, name: 'Стільці' },
-    { id: 5, name: 'Шафи' },
-    { id: 6, name: 'Комоди' },
-    { id: 7, name: 'Полиці' },
-    { id: 8, name: 'Пуфи' },
-    { id: 9, name: 'Тумби' },
-    { id: 10, name: 'Дитячі' },
-    { id: 11, name: 'Офісні' },
-    { id: 12, name: 'Садові' },
+    { id: 'all', name: 'Всі товари' },
+    { id: 'table', name: 'Столи' },
+    { id: 'armchair', name: 'Крісла' },
+    { id: 'bed', name: 'Ліжка' },
+    { id: 'sofa', name: 'Дивани' },
+    { id: 'wardrobe', name: 'Шафи' },
+    { id: 'chest', name: 'Комоди' },
+    { id: 'shelf', name: 'Полиці' },
+    { id: 'pouf', name: 'Пуфи' },
+    { id: 'cabinet', name: 'Тумби' },
+    { id: 'mirror', name: 'Зеркала' },
+    { id: 'office', name: 'Офісні' },
+    { id: 'garden', name: 'Садові' }
   ];
 
   const totalCategories = categories.length;
@@ -37,13 +43,17 @@ const CategorySlider = () => {
       } else {
         setVisibleCategories(7);
       }
-      setCurrentIndex(0); // Reset to first item on resize
+      setCurrentIndex(0);
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const handleCategoryClick = (categoryId: string) => {
+    dispatch(setCategory(categoryId === 'all' ? null : categoryId));
+  };
 
   const slideLeft = () => {
     if (currentIndex > 0) {
@@ -92,9 +102,17 @@ const CategorySlider = () => {
             transform: `translateX(-${currentIndex * (100 / visibleCategories)}%)`
           }}
         >
-          {categories.map(category => (
-            <div key={category.id} className={styles.categoryItem}>
+             {categories.map(category => (
+            <div 
+              key={category.id} 
+              className={`${styles.categoryItem} ${
+                (currentCategory === category.id || 
+                (currentCategory === null && category.id === 'all')) ? styles.active : ''
+              }`}
+              onClick={() => dispatch(setCategory(category.id === 'all' ? null : category.id))}
+            >
               {category.name}
+              <span className={styles.underline} />
             </div>
           ))}
         </div>

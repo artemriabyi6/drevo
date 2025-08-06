@@ -140,3 +140,34 @@
     letter-spacing: 0.2px;
   }
 }
+
+.categoryItem {
+  position: relative;
+  padding: 12px 8px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: #7f5f5f;
+  }
+
+  .underline {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background-color: #7f5f5f;
+    transition: width 0.3s ease;
+  }
+
+  &.active {
+    color: #7f5f5f;
+    font-weight: 500;
+
+    .underline {
+      width: 80%;
+    }
+  }
+}
