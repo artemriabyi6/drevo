@@ -113,7 +113,7 @@ const Hero = () => {
     : cards;
 
     const handleResetCategory = () => {
-    dispatch(setCategory(null)); // Скидаємо фільтр категорій
+    dispatch(setCategory(null)); 
   };
 
   return (
