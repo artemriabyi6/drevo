@@ -1,0 +1,213 @@
+.header {
+  padding: 20px;
+  border-bottom: 1px solid #7f5f5f;
+  position: relative;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+    .burgerMenu {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+      z-index: 1001;
+      width: 40px;
+      height: 40px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+
+      @media (max-width: 768px) {
+        display: block;
+        order: 1;
+      }
+    }
+
+    .logoBlock {
+      cursor: pointer;
+      z-index: 1000;
+
+      .logo {
+        width: 200px;
+        height: auto;
+
+        @media (max-width: 768px) {
+          width: 150px;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          top: -5px;
+        }
+
+        @media (max-width: 480px) {
+          width: 100px;
+          top: 0px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        order: 2;
+        flex: 1;
+        text-align: center;
+      }
+    }
+
+    .navigation {
+      ul {
+        display: flex;
+        gap: 30px;
+        align-items: center;
+
+        li {
+          a {
+            text-transform: uppercase;
+            transition: 0.2s ease;
+            font-size: 16px;
+
+            &:hover {
+              opacity: 0.5;
+            }
+          }
+        }
+      }
+
+      @media (max-width: 768px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: white;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(-100%);
+        transition: transform 0.3s ease;
+        padding-top: 80px;
+
+        &.mobileMenuOpen {
+          transform: translateY(0);
+        }
+
+        ul {
+          flex-direction: column;
+          gap: 30px;
+          width: 100%;
+          padding: 0 20px;
+
+          li {
+            width: 100%;
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+
+            a {
+              font-size: 18px;
+              display: block;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    .featuresBlock {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      z-index: 1000;
+
+      @media (max-width: 768px) {
+        order: 3;
+      }
+
+      img {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+          opacity: 0.7;
+        }
+
+        @media (max-width: 480px) {
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      .favoriteWrapper {
+        position: relative;
+        cursor: pointer;
+
+        .heartIcon {
+          transition: all 0.3s ease;
+
+          &.bounce {
+            animation: bounce 0.5s ease;
+          }
+        }
+
+        .favoriteCount {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          background: red;
+          color: white;
+          border-radius: 50%;
+          width: 18px;
+          height: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          font-weight: bold;
+
+          @media (max-width: 480px) {
+            width: 16px;
+            height: 16px;
+            font-size: 9px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+// Close button for mobile menu
+@media (max-width: 768px) {
+  .mobileMenuClose {
+    position: absolute;
+    top: 25px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+}

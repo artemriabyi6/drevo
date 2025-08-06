@@ -1,0 +1,90 @@
+/* reset.scss */
+
+/* 1. Обнуляємо margin та padding у всіх елементів */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2. Прибираємо стандартні стилі списків */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 3. Обнуляємо стилі посилань */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 4. Забираємо стилі у кнопок та інпутів */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* 5. Встановлюємо стандартний вигляд для тіла сторінки */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  font-family: sans-serif;
+  background-color: #fff;
+  color: #000;
+}
+
+/* 6. Відображення зображень та медіа як блоків, що не виходять за межі */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 7. Забираємо бордери в таблиць */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 8. Normalize стилі для різних браузерів */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Мобільні пристрої */
+@media (max-width: 767px) {
+  body {
+    font-size: 0.875rem; /* Можна зменшити розмір шрифту для мобільних */
+  }
+
+  /* Адаптація зображень для мобільних */
+  img,
+  picture,
+  video {
+    width: 100%;
+    height: auto;
+  }
+    }
+
+    .container {
+        max-width: 1400px;
+        margin: auto;
+    }

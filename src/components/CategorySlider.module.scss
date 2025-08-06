@@ -1,0 +1,142 @@
+.sliderContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  padding: 20px 0;
+}
+
+.sliderWrapper {
+  width: 100%;
+  overflow: hidden;
+  padding: 0 10px;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease;
+  width: 100%;
+}
+
+.categoryItem {
+  flex: 0 0 calc(100% / var(--visible-cats, 7));
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-radius: 4px;
+  margin: 0 2px;
+
+  &:hover {
+    color: rgb(182, 164, 1);
+    background-color: rgba(182, 164, 1, 0.1);
+  }
+}
+
+.arrowButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.leftArrow {
+  margin-right: 8px;
+}
+
+.rightArrow {
+  margin-left: 8px;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .sliderContainer {
+    padding: 18px 0;
+  }
+  
+  .categoryItem {
+    flex: 0 0 calc(100% / 7);
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .categoryItem {
+    flex: 0 0 calc(100% / 5);
+    padding: 10px 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sliderContainer {
+    padding: 15px 0;
+  }
+  
+  .categoryItem {
+    flex: 0 0 calc(100% / 4);
+    font-size: 12px;
+    padding: 8px 4px;
+  }
+  
+  .arrowButton {
+    width: 32px;
+    height: 32px;
+    
+    img {
+      width: 18px;
+      height: 18px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .categoryItem {
+    flex: 0 0 calc(100% / 3);
+    font-size: 11px;
+    padding: 6px 3px;
+  }
+  
+  .arrowButton {
+    width: 28px;
+    height: 28px;
+    
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .categoryItem {
+    font-size: 10px;
+    letter-spacing: 0.2px;
+  }
+}
