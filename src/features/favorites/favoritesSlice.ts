@@ -1,34 +1,70 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+interface Product {
+  id: number;
+  title: string;
+  price: number;
+  image: string;
+}
+
 interface FavoritesState {
-  likedIds: number[];
-  lastAddedId: number | null;
+  likedItems: Product[];
+  lastAddedItem: Product | null;
+  lastRemovedId: number | null;
 }
 
 const initialState: FavoritesState = {
-  likedIds: [],
-  lastAddedId: null,
+  likedItems: [],
+  lastAddedItem: null,
+  lastRemovedId: null,
 };
 
 const favoritesSlice = createSlice({
   name: 'favorites',
   initialState,
   reducers: {
-    toggleFavorite: (state, action: PayloadAction<number>) => {
-      const index = state.likedIds.indexOf(action.payload);
-      if (index === -1) {
-        state.likedIds.push(action.payload);
-        state.lastAddedId = action.payload;
+    toggleFavorite: (state, action: PayloadAction<Product>) => {
+      const existingIndex = state.likedItems.findIndex(
+        item => item.id === action.payload.id
+      );
+      
+      if (existingIndex === -1) {
+        if (existingIndex === -1) {
+  state.likedItems.push(action.payload);
+  state.lastAddedItem = action.payload; 
+}
       } else {
-        state.likedIds.splice(index, 1);
-        state.lastAddedId = null;
+        const removedItem = state.likedItems[existingIndex];
+        state.likedItems.splice(existingIndex, 1);
+        state.lastRemovedId = removedItem.id;
+        state.lastAddedItem = null;
       }
     },
-    resetLastAdded: (state) => {
-      state.lastAddedId = null;
+    
+    removeFromWishlist: (state, action: PayloadAction<number>) => {
+      const existingIndex = state.likedItems.findIndex(
+        item => item.id === action.payload
+      );
+      
+      if (existingIndex !== -1) {
+        state.likedItems.splice(existingIndex, 1);
+        state.lastRemovedId = action.payload;
+        state.lastAddedItem = null;
+      }
+    },
+    
+    clearWishlist: (state) => {
+      state.likedItems = [];
+      state.lastAddedItem = null;
+      state.lastRemovedId = null;
     },
   },
 });
 
-export const { toggleFavorite, resetLastAdded } = favoritesSlice.actions;
+export const { 
+  toggleFavorite,
+  removeFromWishlist,
+  clearWishlist,
+} = favoritesSlice.actions;
+
 export default favoritesSlice.reducer;

@@ -4,19 +4,26 @@ import styles from "./header.module.scss";
 import Image from "next/image";
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import Link from 'next/link';
+import CartIcon from "./CartIcon";
+import { RootState } from '@/redux/store';
 
 const Header = () => {
-  const { likedIds, lastAddedId } = useSelector((state: { favorites: { likedIds: number[], lastAddedId: number | null } }) => state.favorites);
+  // Отримуємо likedItems замість likedIds
+  const { likedItems } = useSelector((state: RootState) => state.favorites);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  
+  // Рахуємо кількість елементів у вішлісті
+  const wishlistCount = likedItems ? likedItems.length : 0;
 
   useEffect(() => {
-    if (lastAddedId) {
+    if (wishlistCount > 0) {
       setIsAnimating(true);
       const timer = setTimeout(() => setIsAnimating(false), 1000);
       return () => clearTimeout(timer);
     }
-  }, [lastAddedId]);
+  }, [wishlistCount]);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -25,7 +32,6 @@ const Header = () => {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        {/* Burger menu for mobile */}
         <button 
           className={styles.burgerMenu}
           onClick={toggleMobileMenu}
@@ -39,64 +45,44 @@ const Header = () => {
           />
         </button>
 
-        {/* Logo - centered on mobile */}
         <div className={styles.logoBlock}>
-          <Image 
-            src='/assets/images/logo.webp' 
-            width={200} 
-            height={80} 
-            alt="logo"
-            className={styles.logo}
-          />
+          <Link href='/'>
+            <Image 
+              src='/assets/images/logo.webp' 
+              width={200} 
+              height={80} 
+              alt="logo"
+              className={styles.logo}
+            />
+          </Link>
         </div>
 
-        {/* Navigation - hidden on mobile */}
         <nav className={`${styles.navigation} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
           <ul>
-            <li>
-              <a href="">Магазин</a>
-            </li>
-            <li>
-              <a href="">Категорії</a>
-            </li>
-            <li>
-              <a href="">Про нас</a>
-            </li>
-            <li>
-              <a href="">Дизайнери</a>
-            </li>
-            <li>
-              <a href="">Контакти</a>
-            </li>
+            <li><a href="">Магазин</a></li>
+            <li><a href="">Категорії</a></li>
+            <li><a href="">Про нас</a></li>
+            <li><a href="">Дизайнери</a></li>
+            <li><a href="">Контакти</a></li>
           </ul>
         </nav>
 
-        {/* Features block - always visible */}
         <div className={styles.featuresBlock}>
           <div className={styles.favoriteWrapper}>
-            <Image
-              src="/assets/icons/heart.svg"
-              width={20}
-              height={20}
-              alt="like-btn"
-              className={`${styles.heartIcon} ${isAnimating ? styles.bounce : ''}`}
-            />
-            {likedIds.length > 0 && (
-              <span className={styles.favoriteCount}>{likedIds.length}</span>
+            <Link href='/wishlist'>
+              <Image
+                src="/assets/icons/heart.svg"
+                width={20}
+                height={20}
+                alt="like-btn"
+                className={`${styles.heartIcon} ${isAnimating ? styles.bounce : ''}`}
+              />
+            </Link>
+            {wishlistCount > 0 && (
+              <span className={styles.favoriteCount}>{wishlistCount}</span>
             )}
           </div>
-          <Image
-            src="/assets/icons/search.svg"
-            width={20}
-            height={20}
-            alt="search"
-          />
-          <Image
-            src="/assets/icons/paper-bag-cart.svg"
-            width={20}
-            height={20}
-            alt="cart"
-          />
+          <CartIcon/>
         </div>
       </div>
     </header>

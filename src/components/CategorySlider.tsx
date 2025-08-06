@@ -51,9 +51,7 @@ const CategorySlider = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleCategoryClick = (categoryId: string) => {
-    dispatch(setCategory(categoryId === 'all' ? null : categoryId));
-  };
+ 
 
   const slideLeft = () => {
     if (currentIndex > 0) {
