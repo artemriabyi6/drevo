@@ -80,7 +80,7 @@ const Header = () => {
 
           <nav className={`${styles.navigation} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
             <ul>
-              <li><a href="">Магазин</a></li>
+              <li><Link href="/">Магазин</Link></li>
               <li><a href="">Категорії</a></li>
               <li><a href="">Про нас</a></li>
               <li><a href="">Дизайнери</a></li>

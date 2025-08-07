@@ -88,3 +88,21 @@ body {
         max-width: 1400px;
         margin: auto;
     }
+
+    :root {
+  --header-z-index: 100;
+  --sticky-header-z-index: 1000;
+  --dropdown-z-index: 1100;
+}
+
+.header {
+  z-index: var(--header-z-index);
+  
+  &.sticky {
+    z-index: var(--sticky-header-z-index);
+  }
+}
+
+.cartDropdown {
+  z-index: var(--dropdown-z-index);
+}

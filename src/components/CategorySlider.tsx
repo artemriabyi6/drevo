@@ -21,13 +21,9 @@ const CategorySlider = () => {
     { id: 'bed', name: 'Ліжка' },
     { id: 'sofa', name: 'Дивани' },
     { id: 'wardrobe', name: 'Шафи' },
-    { id: 'chest', name: 'Комоди' },
-    { id: 'shelf', name: 'Полиці' },
     { id: 'pouf', name: 'Пуфи' },
     { id: 'cabinet', name: 'Тумби' },
     { id: 'mirror', name: 'Зеркала' },
-    { id: 'office', name: 'Офісні' },
-    { id: 'garden', name: 'Садові' }
   ];
 
   const totalCategories = categories.length;

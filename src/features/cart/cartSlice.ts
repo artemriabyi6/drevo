@@ -12,9 +12,23 @@ interface CartState {
   items: CartItem[];
 }
 
-const initialState: CartState = {
-  items: [],
+
+
+const loadCartState = (): CartState => {
+  try {
+    const serializedState = localStorage.getItem('cart');
+    if (serializedState === null) {
+      return { items: [] };
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    console.error('Failed to load cart state', err);
+    return { items: [] };
+  }
 };
+
+const initialState: CartState = loadCartState();
+
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -43,8 +57,11 @@ const cartSlice = createSlice({
     clearCart: state => {
       state.items = [];
     },
+     hydrateCart: (state, action: PayloadAction<CartState>) => {
+      return action.payload;
+    },
   },
 });
 
-export const { addItem, removeItem, updateQuantity, clearCart } = cartSlice.actions;
+export const { addItem, removeItem, updateQuantity, clearCart, hydrateCart } = cartSlice.actions;
 export default cartSlice.reducer;

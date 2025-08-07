@@ -2,6 +2,7 @@
 
 import styles from "./hero.module.scss";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleFavorite } from '@/features/favorites/favoritesSlice';
@@ -104,7 +105,9 @@ const cards: Card[] = [
 ];
 
 const Hero = () => {
- const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const router = useRouter();
   const dispatch = useDispatch();
   const likedItems = useSelector((state: RootState) => state.favorites.likedItems);
   const currentCategory = useSelector((state: RootState) => state.filter.category);
@@ -115,6 +118,10 @@ const Hero = () => {
 
     const handleResetCategory = () => {
     dispatch(setCategory(null)); 
+  };
+
+  const handleCardClick = (id: number) => {
+    router.push(`/product/${id}`);
   };
 
  const handleAddToCart = (card: Card) => {
@@ -139,6 +146,7 @@ const Hero = () => {
           className={styles.card}
           onMouseEnter={() => setHoveredCard(card.id)}
           onMouseLeave={() => setHoveredCard(null)}
+          onClick={() => handleCardClick(card.id)}
         >
           <div className={styles.imageContainer}>
             <div className={styles.imageWrapper}>

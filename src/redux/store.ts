@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import favoritesReducer from '@/features/favorites/favoritesSlice';
 import filterReducer from '../features/filter/filterSlice';
 import cartReducer from '../features/cart/cartSlice';
+import { loadState, saveState } from '../utils/storage';
 
 
 export const store = configureStore({
@@ -12,5 +13,11 @@ export const store = configureStore({
   },
 });
 
+store.subscribe(() => {
+  saveState('cart', store.getState().cart);
+  saveState('favorites', store.getState().favorites);
+});
+
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export default store;
