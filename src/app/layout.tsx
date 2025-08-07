@@ -1,3 +1,5 @@
+
+
 import '@/styles/global.scss';
 import { ReduxProvider } from '@/redux/provider';
 

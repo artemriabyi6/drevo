@@ -44,12 +44,14 @@ export default function WishlistPage() {
         
         {isEmpty ? (
           <div className={styles.emptyWishlist}>
-            <Image
-              src="/assets/icons/heart-empty.svg"
+            <Link href='/'>
+             <Image
+              src="/assets/icons/heart.svg"
               width={100}
               height={100}
               alt="Empty wishlist"
             />
+            </Link>
             <p>Your Wishlist Is Currently Empty</p>
             <p>Click the icon to add products</p>
             <Link href="/" className={styles.backToShop}>
@@ -95,7 +97,7 @@ export default function WishlistPage() {
                         className={styles.removeBtn}
                       >
                         <Image
-                          src="/assets/icons/trash.svg"
+                          src="/assets/icons/remove.svg"
                           width={20}
                           height={20}
                           alt="Remove"

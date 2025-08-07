@@ -69,7 +69,7 @@ const Header = () => {
 
         <div className={styles.featuresBlock}>
           <div className={styles.favoriteWrapper}>
-            <Link href='/wishlist'>
+            <Link href='/wishList'>
               <Image
                 src="/assets/icons/heart.svg"
                 width={20}

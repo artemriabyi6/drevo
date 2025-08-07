@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface Product {
   id: number;
   title: string;
-  price: number;
+  price: number ;
   image: string;
 }
 
@@ -29,10 +29,9 @@ const favoritesSlice = createSlice({
       );
       
       if (existingIndex === -1) {
-        if (existingIndex === -1) {
-  state.likedItems.push(action.payload);
-  state.lastAddedItem = action.payload; 
-}
+        state.likedItems.push(action.payload);
+        state.lastAddedItem = action.payload;
+        state.lastRemovedId = null;
       } else {
         const removedItem = state.likedItems[existingIndex];
         state.likedItems.splice(existingIndex, 1);

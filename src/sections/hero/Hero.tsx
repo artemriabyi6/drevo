@@ -4,7 +4,7 @@ import styles from "./hero.module.scss";
 import Image from "next/image";
 import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-// import { toggleFavorite } from '@/features/favorites/favoritesSlice';
+import { toggleFavorite } from '@/features/favorites/favoritesSlice';
 import { setCategory } from '@/features/filter/filterSlice';
 import { addItem } from '@/features/cart/cartSlice';
 import { RootState } from '../../redux/store';
@@ -106,7 +106,7 @@ const cards: Card[] = [
 const Hero = () => {
  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const dispatch = useDispatch();
-  // const likedIds = useSelector((state: RootState) => state.favorites.likedIds);
+  const likedItems = useSelector((state: RootState) => state.favorites.likedItems);
   const currentCategory = useSelector((state: RootState) => state.filter.category);
 
   const filteredCards = currentCategory
@@ -118,10 +118,10 @@ const Hero = () => {
   };
 
  const handleAddToCart = (card: Card) => {
-  console.log('Adding to cart:', card.title); // Додайте це
+  console.log('Adding to cart:', card.title); 
   const priceValue = parseFloat(card.price.match(/[\d,]+/)?.[0].replace(',', '') || '0');
   
-  console.log('Dispatching addItem action'); // Додайте це
+  console.log('Dispatching addItem action'); 
   dispatch(addItem({
     id: card.id,
     name: card.title,
@@ -161,26 +161,31 @@ const Hero = () => {
                 }`}
               />
             </div>
-            <button 
-              className={`${styles.favoriteButton} ${
-                hoveredCard === card.id ? styles.visible : ''
-              }`}
-              // onClick={(e) => {
-              //   e.stopPropagation();
-              //   dispatch(toggleFavorite(card.id));
-              // }}
-            >
-              <svg 
-                width="24" 
-                height="24" 
-                viewBox="0 0 24 24" 
-                // fill={likedIds.includes(card.id) ? "red" : "none"} 
-                // stroke={likedIds.includes(card.id) ? "red" : "black"} 
-                strokeWidth="2"
-              >
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-            </button>
+           <button 
+  className={`${styles.favoriteButton} ${
+    hoveredCard === card.id ? styles.visible : ''
+  }`}
+ onClick={(e) => {
+    e.stopPropagation();
+    dispatch(toggleFavorite({
+      id: card.id,
+      title: card.title,
+      price: parseFloat((card.price.match(/[\d,]+/)?.[0] || '0').replace(',', '')),
+      image: card.image
+    }));
+  }}
+>
+  <svg 
+    width="24" 
+    height="24" 
+    viewBox="0 0 24 24" 
+    fill={likedItems.some(item => item.id === card.id) ? "red" : "none"} 
+    stroke={likedItems.some(item => item.id === card.id) ? "red" : "black"} 
+    strokeWidth="2"
+  >
+    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+  </svg>
+</button>
             <div className={`${styles.buttonGroup} ${
               hoveredCard === card.id ? styles.visible : ''
             }`}>
