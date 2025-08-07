@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
@@ -10,18 +10,25 @@ import styles from './CartIcon.module.scss';
 const CartIcon = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const prevCartItemsRef = useRef<string>('');
   const cartItems = useSelector((state: RootState) => state.cart.items);
+  
+  const cartKey = cartItems
+    .map(item => `${item.id}-${item.quantity}`)
+    .join('|');
+    
   const itemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
-  // Анімація при зміні вмісту кошика
   useEffect(() => {
-    if (itemsCount > 0) {
+    // Анімація тільки при реальній зміні вмісту кошика
+    if (cartKey !== prevCartItemsRef.current) {
       setIsAnimating(true);
       const timer = setTimeout(() => setIsAnimating(false), 500);
+      prevCartItemsRef.current = cartKey;
       return () => clearTimeout(timer);
     }
-  }, [itemsCount, cartItems]);
+  }, [cartKey]);
 
   return (
     <div 
@@ -35,7 +42,8 @@ const CartIcon = () => {
             src="/assets/icons/paper-bag-cart.svg" 
             width={24} 
             height={24} 
-            alt="Cart"
+            alt="Кошик"
+            priority
           />
           {itemsCount > 0 && (
             <span className={styles.cartBadge}>{itemsCount}</span>
@@ -54,21 +62,23 @@ const CartIcon = () => {
               <div className={styles.cartItems}>
                 {cartItems.map(item => (
                   <div key={`${item.id}-${item.quantity}`} className={styles.cartItem}>
-                    <Image 
-                      src={item.image} 
-                      width={100} 
-                      height={100} 
-                      alt={item.name}
-                    />
-                    <div>
-                      <p>{item.name}</p>
-                      <p>€{item.price} x {item.quantity}</p>
+                    <div className={styles.itemImage}>
+                      <Image 
+                        src={item.image} 
+                        width={80}
+                        height={80}
+                        alt={item.name}
+                      />
+                    </div>
+                    <div className={styles.itemInfo}>
+                      <p className={styles.itemName}>{item.name}</p>
+                      <p className={styles.itemPrice}>€{item.price} × {item.quantity}</p>
                     </div>
                   </div>
                 ))}
               </div>
               <div className={styles.dropdownFooter}>
-                <p>Разом: €{totalPrice.toFixed(2)}</p>
+                <p className={styles.totalPrice}>Разом: €{totalPrice.toFixed(2)}</p>
                 <Link href="/cart" passHref>
                   <button className={styles.checkoutButton}>
                     Оформити замовлення
@@ -79,6 +89,9 @@ const CartIcon = () => {
           ) : (
             <div className={styles.emptyCart}>
               <p>Кошик порожній</p>
+              <Link href="/shop" className={styles.continueShopping}>
+                Продовжити покупки
+              </Link>
             </div>
           )}
         </div>
