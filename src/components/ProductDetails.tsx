@@ -20,7 +20,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Create an array of all product images
   const productImages = [product.image, product.hoverImage, product.image, product.hoverImage];
 
   const openModal = (index: number) => {

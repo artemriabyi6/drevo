@@ -8,10 +8,16 @@ interface ProductPageProps {
   params: {
     id: string;
   };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 const ProductPage = ({ params }: ProductPageProps) => {
   const productId = parseInt(params.id);
+  
+  if (isNaN(productId)) {
+    return notFound();
+  }
+
   const product = products.find(product => product.id === productId);
   
   if (!product) {
@@ -20,13 +26,12 @@ const ProductPage = ({ params }: ProductPageProps) => {
 
   return (
     <>
-    <Header/>
-    <div className="container">
-      <ProductDetails product={product} />
-    </div>
-    <Footer/>
+      <Header />
+      <main className="container">
+        <ProductDetails product={product} />
+      </main>
+      <Footer />
     </>
-    
   );
 };
 
