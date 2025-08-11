@@ -38,9 +38,8 @@ interface ProductPageProps {
   params: {
     id: string;
   };
-  searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-export default function Page() {
-  return <div>Test product page</div>
+export default function ProductPage({ params }: ProductPageProps) {
+  return <div>Product ID: {params.id}</div>
 }
