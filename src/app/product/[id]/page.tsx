@@ -8,10 +8,9 @@ interface ProductPageProps {
   params: {
     id: string;
   };
-  // searchParams?: { [key: string]: string | string[] | undefined };
 }
 
-const ProductPage = ({ params }: ProductPageProps) => {
+export default function ProductPage({ params }: ProductPageProps) {
   const productId = parseInt(params.id);
   
   if (isNaN(productId)) {
@@ -33,6 +32,4 @@ const ProductPage = ({ params }: ProductPageProps) => {
       <Footer />
     </>
   );
-};
-
-export default ProductPage;
+}
