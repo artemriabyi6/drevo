@@ -4,12 +4,9 @@ import { products } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-interface PageProps {
-  params: { id: string };
-}
-
-export default async function Page({ params }: PageProps) {
-  const productId = Number(params.id);
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params;
+  const productId = Number(id);
 
   if (isNaN(productId)) {
     notFound();
@@ -31,3 +28,4 @@ export default async function Page({ params }: PageProps) {
     </>
   );
 }
+
