@@ -26,7 +26,7 @@ export default function Page({
     <>
       <Header />
       <main className="container">
-        <ProductDetails product={product} />
+        {/* <ProductDetails product={product} /> */}
       </main>
       <Footer />
     </>
