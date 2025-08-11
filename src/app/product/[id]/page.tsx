@@ -20,6 +20,7 @@ export default async function Page({ params }) {
   return (
     <>
       <Header />
+      
       <main className="container">
         <ProductDetails product={product} />
       </main>
