@@ -124,6 +124,7 @@ export default function WishlistPage() {
               <div className={styles.socialIcons}>
                 <span>ПОДІЛИТИСЯ БАЖАННЯМИ:</span>
                 <div className={styles.icons}>
+                  {/*temporal buttons */}
                   <button>💬</button>
                   <button>💭</button>
                   <button>💮</button>
