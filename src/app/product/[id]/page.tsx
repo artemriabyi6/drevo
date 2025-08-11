@@ -4,7 +4,7 @@ import { products } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({ params }) {
   const productId = Number(params.id);
 
   if (isNaN(productId)) {
@@ -27,3 +27,4 @@ export default async function Page({ params }: { params: { id: string } }) {
     </>
   );
 }
+
