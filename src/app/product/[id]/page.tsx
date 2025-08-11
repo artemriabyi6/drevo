@@ -1,45 +1,44 @@
-// import { notFound } from 'next/navigation';
-// import ProductDetails from '../../../components/ProductDetails';
-// import { products } from '../../../data/products';
-// import Header from '@/components/Header';
-// import Footer from '@/components/Footer';
+import { notFound } from 'next/navigation';
+import ProductDetails from '@/components/ProductDetails';
+import { products } from '@/data/products';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
-// interface ProductPageProps {
-//   params: {
-//     id: string;
-//   };
-// }
-
-// export default function ProductPage({ params }: ProductPageProps) {
-//   const productId = parseInt(params.id);
-  
-//   if (isNaN(productId)) {
-//     return notFound();
-//   }
-
-//   const product = products.find(product => product.id === productId);
-  
-//   if (!product) {
-//     return notFound();
-//   }
-
-//   return (
-//     <>
-//       <Header />
-//       <main className="container">
-//         <ProductDetails product={product} />
-//       </main>
-//       <Footer />
-//     </>
-//   );
-// }
-
-interface ProductPageProps {
+interface PageProps {
   params: {
     id: string;
   };
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  return <div>Product ID: {params.id}</div>
+export async function generateStaticParams() {
+  return products.map(product => ({
+    id: product.id.toString(),
+  }));
 }
+
+export default function ProductPage({ params }: PageProps) {
+  // Валідація параметра
+  const productId = Number(params.id);
+  if (isNaN(productId)) {
+    notFound();
+  }
+
+  // Пошук продукту
+  const product = products.find(p => p.id === productId);
+  if (!product) {
+    notFound();
+  }
+
+  // Рендер сторінки
+  return (
+    <>
+      <Header />
+      <main className="container">
+        <ProductDetails product={product} />
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+
