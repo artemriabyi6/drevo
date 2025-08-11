@@ -4,32 +4,24 @@ import { products } from '@/data/products';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-interface PageProps {
-  params: {
-    id: string;
-  };
-}
 
-export async function generateStaticParams() {
-  return products.map(product => ({
-    id: product.id.toString(),
-  }));
-}
-
-export default function ProductPage({ params }: PageProps) {
-  // Валідація параметра
-  const productId = Number(params.id);
+export default function Page({
+  params
+}: {
+  params: { id: string }
+}) {
+  const productId = parseInt(params.id);
+  
   if (isNaN(productId)) {
     notFound();
   }
 
-  // Пошук продукту
-  const product = products.find(p => p.id === productId);
+  const product = products.find(product => product.id === productId);
+  
   if (!product) {
     notFound();
   }
 
-  // Рендер сторінки
   return (
     <>
       <Header />
@@ -40,5 +32,3 @@ export default function ProductPage({ params }: PageProps) {
     </>
   );
 }
-
-
