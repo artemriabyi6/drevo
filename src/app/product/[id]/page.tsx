@@ -8,7 +8,7 @@ interface ProductPageProps {
   params: {
     id: string;
   };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  // searchParams?: { [key: string]: string | string[] | undefined };
 }
 
 const ProductPage = ({ params }: ProductPageProps) => {
