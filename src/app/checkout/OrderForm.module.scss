@@ -139,7 +139,7 @@
 }
 
 .submitButton {
-  background: #2a5885;
+  background: hsl(210, 52%, 34%);
   color: white;
   padding: 1rem;
   border: none;
@@ -151,7 +151,7 @@
   margin-top: 1rem;
 
   &:hover {
-    background: darken(#2a5885, 10%);
+  background: hsl(210, 42%, 34%);
     transform: translateY(-2px);
   }
 
