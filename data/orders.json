@@ -1,0 +1,107 @@
+[
+  {
+    "id": "1755005147596",
+    "name": "artem",
+    "phone": "+380996373164",
+    "email": "artemriabyi8@gmail.com",
+    "address": "xxx zx ",
+    "items": [],
+    "date": "2025-08-12T13:25:47.596Z"
+  },
+  {
+    "id": "1755006149063",
+    "name": "artem",
+    "phone": "+380996373164",
+    "email": "artemriabyi8@gmail.com",
+    "address": "Сумська 3",
+    "items": [
+      {
+        "id": 2,
+        "name": "BUN",
+        "price": 1750,
+        "quantity": 2,
+        "image": "/assets/images/Bun-armchair.webp"
+      }
+    ],
+    "date": "2025-08-12T13:42:29.064Z",
+    "total": 3500
+  },
+  {
+    "id": "1755006435595",
+    "name": "Stacey",
+    "phone": "+380996373164",
+    "email": "denys@gmail.com",
+    "address": "Коновальця 3",
+    "items": [
+      {
+        "id": 2,
+        "name": "BUN",
+        "price": 1750,
+        "quantity": 1,
+        "image": "/assets/images/Bun-armchair.webp"
+      },
+      {
+        "id": 1,
+        "name": "BIBLIO ROUND",
+        "price": 4560,
+        "quantity": 1,
+        "image": "/assets/images/table1.webp"
+      },
+      {
+        "id": 5,
+        "name": "BIBLIO S",
+        "price": 890,
+        "quantity": 1,
+        "image": "/assets/images/Biblio-coffee-tables.001 - Edited.webp"
+      },
+      {
+        "id": 8,
+        "name": "FULL FILL",
+        "price": 910,
+        "quantity": 1,
+        "image": "/assets/images/mirror-full-fill-1 - Edited.webp"
+      }
+    ],
+    "date": "2025-08-12T13:47:15.595Z",
+    "total": 8110
+  },
+  {
+    "id": "1755006710373",
+    "name": "cas",
+    "phone": "+380996373164",
+    "email": "artemriabyi8@gmail.com",
+    "address": "acfacacas",
+    "items": [
+      {
+        "id": 2,
+        "name": "BUN",
+        "price": 1750,
+        "quantity": 1,
+        "image": "/assets/images/Bun-armchair.webp"
+      },
+      {
+        "id": 1,
+        "name": "BIBLIO ROUND",
+        "price": 4560,
+        "quantity": 1,
+        "image": "/assets/images/table1.webp"
+      },
+      {
+        "id": 5,
+        "name": "BIBLIO S",
+        "price": 890,
+        "quantity": 1,
+        "image": "/assets/images/Biblio-coffee-tables.001 - Edited.webp"
+      },
+      {
+        "id": 8,
+        "name": "FULL FILL",
+        "price": 910,
+        "quantity": 1,
+        "image": "/assets/images/mirror-full-fill-1 - Edited.webp"
+      }
+    ],
+    "date": "2025-08-12T13:51:50.373Z",
+    "total": 8110
+  }
+]
