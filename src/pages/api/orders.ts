@@ -22,6 +22,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log('POSTGRES_PRISMA_URL:', process.env.POSTGRES_PRISMA_URL);
+  console.log('POSTGRES_URL_NON_POOLING:', process.env.POSTGRES_URL_NON_POOLING);
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
