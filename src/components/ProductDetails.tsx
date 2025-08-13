@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react';
 import styles from './ProductDetails.module.scss';
+import { useDispatch } from 'react-redux';
+import { addItem } from '@/features/cart/cartSlice';
 import Image from 'next/image';
 
 interface ProductDetailsProps {
@@ -16,10 +18,20 @@ interface ProductDetailsProps {
   };
 }
 
+type Card = {
+  title: string;
+  price: string;
+  id: number;
+  desc: string;
+  image: string;
+  hoverImage: string;
+  type: string;
+};
+
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
+  const dispatch = useDispatch()
   const productImages = [product.image, product.hoverImage, product.image, product.hoverImage];
 
   const openModal = (index: number) => {
@@ -43,6 +55,19 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         prev === productImages.length - 1 ? 0 : prev + 1
       );
     }
+  };
+
+  const handleAddToCart = (card: Card) => {
+    console.log('Adding to cart:', card.title); 
+    const priceValue = parseFloat(card.price.match(/[\d,]+/)?.[0].replace(',', '') || '0');
+    
+    console.log('Dispatching addItem action'); 
+    dispatch(addItem({
+      id: card.id,
+      name: card.title,
+      price: priceValue,
+      image: card.image,
+    }));
   };
 
   return (
@@ -76,7 +101,16 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         <p className={styles.description}>{product.desc}</p>
         
         <div className={styles.actions}>
-          <button className={styles.addToCart}>+ ДОДАТИ В КОШИК</button>
+          <button 
+  className={styles.addToCart} 
+   onClick={(e) => {
+                    e.stopPropagation();
+                     e.preventDefault();
+                    handleAddToCart(product);
+                  }}
+>
+  + ДОДАТИ В КОШИК
+</button>
           <button className={styles.consultation}>ОТРИМАТИ КОНСУЛЬТАЦІЮ</button>
         </div>
         
@@ -85,7 +119,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
         </div>
       </div>
 
-      {/* Image Modal */}
+     
       {isModalOpen && (
         <div className={styles.modalOverlay} onClick={closeModal}>
           <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
