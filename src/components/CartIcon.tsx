@@ -8,7 +8,7 @@ import { RootState } from '@/redux/store';
 import styles from './CartIcon.module.scss';
 
 const CartIcon = () => {
-  // const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const prevCartItemsRef = useRef<string>('');
   const cartItems = useSelector((state: RootState) => state.cart.items);
@@ -18,7 +18,7 @@ const CartIcon = () => {
     .join('|');
     
   const itemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-  // const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const totalPrice = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   useEffect(() => {
    
@@ -33,8 +33,8 @@ const CartIcon = () => {
   return (
     <div 
       className={styles.cartContainer}
-      // onMouseEnter={() => setIsOpen(true)}
-      // onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
     >
       <Link href="/cart" passHref>
         <div className={`${styles.cartIcon} ${isAnimating ? styles.bounce : ''}`}>
@@ -51,7 +51,7 @@ const CartIcon = () => {
         </div>
       </Link>
 
-      {/* {isOpen && (
+      {isOpen && (
         <div className={styles.cartDropdown}>
           <div className={styles.dropdownHeader}>
             <h4>Кошик ({itemsCount})</h4>
@@ -65,8 +65,8 @@ const CartIcon = () => {
                     <div className={styles.itemImage}>
                       <Image 
                         src={item.image} 
-                        width={80}
-                        height={80}
+                        width={150}
+                        height={150}
                         alt={item.name}
                       />
                     </div>
@@ -95,7 +95,7 @@ const CartIcon = () => {
             </div>
           )}
         </div>
-      )} */}
+      )}
     </div>
   );
 };

@@ -18,10 +18,10 @@
     animation: slideDown 0.3s ease-out;
   }
 
-  &:not(.sticky) {
-    position: static;
-    transform: translateY(0);
-  }
+  // &:not(.sticky) {
+  //   position: static;
+  //   transform: translateY(0);
+  // }
 
   .container {
     display: flex;
